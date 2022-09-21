@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="./assets/loan-application.css">
+
+  <link rel="shortcut icon" href="./assets/bull-side-view-black-animal-shape.png" type="image/x-icon">
+  <title>Loan Application</title>
+</head>
+
+<body>
+  <div id="app" v-cloak>
+    <header class="bg-black bg-opacity-50  sticky-top">
+      <nav class="navbar navbar-expand navbar-dark d-flex justify-content-around ">
+        <div class="d-flex align-items-center">
+          <button class="btn btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
+            aria-controls="offcanvasScrolling"><i class="bi bi-list"></i></button>
+          <a class="navbar-brand ps-3 h2 cursive" href="#">Mindhub Brothers Bank</a>
+        </div>
+      </nav>
+
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasScrolling"
+        aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title font1 text-black h3" id="offcanvasScrollingLabel">MindHub BB</h5>
+          <img src="./assets/bull-side-view-black-animal-shape.png" alt="" class="logo1">
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column align-items-center">
+          <a class="list-group-item list-group-item-action list-group-item-light navborder  p-3" href="./accounts.html"><img
+              src="./videos/bancoNav.gif" class="imgnav" alt=""> Accounts</a>
+          <a class="list-group-item list-group-item-action list-group-item-light navborder  p-3"
+            href="./cards.html"><img src="./videos/tarjeta-de-creditoNav.gif" class="imgnav" alt="">Cards</a>
+          <a class="list-group-item list-group-item-action list-group-item-light navborder p-3"
+            href="./transfers.html"><img src="./videos/intercambioNav.gif" class="imgnav" alt=""> Transfers</a>
+          <a class="list-group-item list-group-item-action list-group-item-light navborder p-3"
+            href="#"><img src="./videos/bolsa-de-dineroNAV.gif" class="imgnav" alt="">Loans
+            Application</a>
+          <a class="list-group-item list-group-item-action list-group-item-light navborder p-3"
+            href="./payments.html"><img src="./videos/pago-por-clicNAV.gif" class="imgnav" alt=""> Payments</a>
+          <a v-show="email == 'admin@mindhub.com'"
+            class="list-group-item list-group-item-action list-group-item-light btn navborder m-3 p-3"
+            href="./createLoan.html"><img src="./videos/coheteNav.gif" class="imgnav" alt=""> Create Loan </a>
+          <form class="w-50 m-2" @submit.prevent="logout">
+            <button type="submit" class="btn btn-primary">Logout</button>
+          </form>
+        </div>
+      </div>
+
+    </header>
+
+    <main class="bg-black bg-opacity-50 d-lg-flex d-xl-flex d-xxl-flex justify-content-around align-items-center">
+      <section class="d-xl-flex d-xxl-flex justify-content-center align-items-center textaccount m-2">
+        <div class="d-flex justify-content-center textaccount">
+          <img src="./videos/loan-application-img.gif" class="imgAccounts" alt="">
+        </div>
+        <div class="d-flex flex-column justify-content-center">
+          <h2 class="textloan">We lend for you!</h2>
+          <h4 class="text-center m-3">Online financing lines.</h4>
+          <hr>
+          <div v-for="loan in loans">
+            <h4 class="text-center">{{loan.name}} interest of {{loan.interest}}%</h4>
+            <hr>
+          </div>
+        </div>
+      </section>
+
+      <section class="d-lg-flex d-xl-flex d-xxl-flex justify-content-around m-2">
+        <div class="formloanapplication">
+          <h5>Type of loan</h5>
+          <select class="form-select w-100" aria-label="Default select example" v-model="loanId">
+            <option v-for="loan in loans" :value="loan.id">{{loan.name}} interest {{loan.interest}}%</option>
+          </select>
+          <h5>Payments</h5>
+          <select v-if="loanId" class="form-select w-100" aria-label="Default select example" v-model="payments">
+            <option v-for="payment in loans.filter(l => l.id == loanId)[0].payments" :value="payment">{{payment}}
+            </option>
+          </select>
+          <label for="amount" class="h5 text-light">Amount</label>
+          <input class="form-control" type="number" min="0.1" name="amount" id="amount" v-model="amount" required>
+          <h5>Destiny account</h5>
+          <select class="form-select w-100" aria-label="Default select example" v-model="accountDestination" >
+            <option v-for="account in accounts" :value="account.number" v-show="account.active == true">{{account.number}}</option>
+          </select>
+          <div v-if="loanId && amount > 0" class="d-flex flex-column">
+            <label for="subtotal" class="h5 text-light">Amount of payments</label>
+            <input class="form-control" type="text" disabled
+              :value="((loans.filter(l => l.id == loanId)[0].interest * amount / 100) + amount) / payments">
+            <label for="subtotal" class="h5 text-light">Total to pay</label>
+            <input class="form-control" type="text" disabled
+              :value="(loans.filter(l => l.id == loanId)[0].interest * amount / 100) + amount">
+          </div>
+          <div class="d-flex c align-items-center"
+            v-if="accountDestination == false || payments == false || loanId == false || amount <= 0">
+            <button disabled type="button" class="btn btn-primary m-3" data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop">
+              Apply
+            </button>
+            <h5 class=" text-white">Please, fill in the fields.</h5>
+          </div>
+          <div v-else>
+            <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              Apply
+            </button>
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- Modal -->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="staticBackdropLabel">Loan Detail</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <ul>
+                <li class="h5 text-black">Destination account: {{accountDestination}}</li>
+                <!--   <li>Amount: {{newNumber(amount + amount * mortgage)}}</li> -->
+                <li v-show="loanId == '1'" class="h5 text-black">Amount: {{ newNumber(amount * mortgage)}}</li>
+                <li v-show="loanId == '2'" class="h5 text-black">Amount: {{ newNumber(amount * personal)}}</li>
+                <li v-show="loanId == '3'" class="h5 text-black">Amount: {{ newNumber(amount * automotive)}}</li>
+              </ul>
+            </div>
+            <p class="h4">Are you sure to continue?</p>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-primary" @click="newLoan">Continue to Apply</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+
+    <footer class="bg-black bg-opacity-50">
+
+    </footer>
+
+  </div>
+  <!-- BOOSTRAP -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+  <!-- AXIOS -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- SWEETALERT -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- VUE JS -->
+  <script src="https://unpkg.com/vue@3"></script>
+  <!--  JAVASCRIPT -->
+  <script src="./ loan-application.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <!--  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="./assets/style.css">
+  <link rel="shortcut icon" href="./assets/bull-side-view-black-animal-shape.png" type="image/x-icon">
+  <title>accounts</title>
+</head>
+
+<body>
+  <div id="app" v-cloak>
+    <header class="bg-black bg-opacity-50  sticky-top">
+      <nav class="navbar navbar-expand navbar-dark d-flex justify-content-around ">
+        <div class="d-flex align-items-center">
+          <button class="btn btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
+            aria-controls="offcanvasScrolling"><i class="bi bi-list"></i></button>
+          <a class="navbar-brand ps-3 h2 cursive" href="#">Mindhub Brothers Bank</a>
+        </div>
+      </nav>
+
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasScrolling"
+        aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title font1 text-black h3" id="offcanvasScrollingLabel">MindHub BB</h5>
+          <img src="./assets/bull-side-view-black-animal-shape.png" alt="" class="logo1">
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column align-items-center">
+          <a class="list-group-item list-group-item-action list-group-item-light navborder  p-3" href="#"><img
+              src="./videos/bancoNav.gif" class="imgnav" alt=""> Accounts</a>
+          <a class="list-group-item list-group-item-action list-group-item-light navborder  p-3"
+            href="./cards.html"><img src="./videos/tarjeta-de-creditoNav.gif" class="imgnav" alt="">Cards</a>
+          <a class="list-group-item list-group-item-action list-group-item-light navborder p-3"
+            href="./transfers.html"><img src="./videos/intercambioNav.gif" class="imgnav" alt=""> Transfers</a>
+          <a class="list-group-item list-group-item-action list-group-item-light navborder p-3"
+            href="./loan-application.html"><img src="./videos/bolsa-de-dineroNAV.gif" class="imgnav" alt="">Loans
+            Application</a>
+          <a class="list-group-item list-group-item-action list-group-item-light navborder p-3"
+            href="./payments.html"><img src="./videos/pago-por-clicNAV.gif" class="imgnav" alt=""> Payments</a>
+          <a v-show="email == 'admin@mindhub.com'"
+            class="list-group-item list-group-item-action list-group-item-light btn navborder m-3 p-3"
+            href="./createLoan.html"><img src="./videos/coheteNav.gif" class="imgnav" alt=""> Create Loan </a>
+          <form class="w-50 m-2" @submit.prevent="logout">
+            <button type="submit" class="btn btn-primary">Logout</button>
+          </form>
+        </div>
+      </div>
+
+    </header>
+
+    <main class="d-flex flex-column justify-content-center bg-black bg-opacity-50 shadow ">
+      <section
+        class="d-sm-flex d-md-flex d-lg-flex d-xl-flex d-xxl-flex justify-content-center align-items-center textaccount">
+        <div class="d-flex justify-content-center ">
+          <img src="./videos/Business deal.gif" class="imgAccounts" alt="">
+        </div>
+        <div class="d-flex flex-column justify-content-center text-center ">
+          <h3>Welcome {{clients.firstName}}
+            {{clients.lastName}},</h3>
+          <h3>You can request up to 3 accounts.</h3>
+          <h3>To create accounts you can click here!</h3>
+          <div v-if="accountFilter.length == 3">
+            <p>Sorry, you can not create more accounts!<i class="bi bi-emoji-frown"></i></p>
+          </div>
+          <div v-else>
+            <form>
+              <!-- <button>create account</button> -->
+              <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                create account
+              </button>
+            </form>
+
+          </div>
+        </div>
+      </section>
+      <!-- modal -->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Select account type</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <select class="form-select w-100" aria-label="Default select example" v-model="accountType">
+                <option value="SAVING">SAVING</option>
+                <option value="CURRENT">CURRENT</option>
+              </select>
+            </div>
+            <p>Are you sure to continue?</p>
+            <div class="modal-footer d-flex flex-row">
+              <button type="button" class=" btn-secondary btn1" data-bs-dismiss="modal">Cancel</button>
+              <button @click="newAccount" class=" btn-secondary btn1">create</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class=" d-xl-flex d-xxl-flex flex-column justify-content-center align-items-center textaccount">
+        <div class="m-5 ">
+          <h2 class="font h1 text-center text-black border-bottom ">Accounts</h2>
+        </div>
+        <div class=" d-lg-flex d-xl-flex d-xxl-flex justify-content-center align-items-center">
+          <div class="d-flex justify-content-center ">
+            <img src="./videos/Business-Plan.gif" class="imgAccounts" alt="">
+          </div>
+          <div>
+            <div class=" cardaccounts  bg-body text-dark" v-for="account in accounts" v-show="account.active == true">
+              <div class="m-2 d-sm-flex d-md-flex d-lg-flex d-xl-flex d-xxl-flex">
+                <p class="font2 m-1 p-1 ">Number: {{account.number}}</p>
+                <p class="font2 m-1 p-1">Date: {{newDate(account.creationDate)}}</p>
+                <p class="font2 m-1 p-1">Balance: {{newNumber(account.balance)}}</p>
+                <p class="font2 m-1 p-1">Type: {{account.type}}</p>
+                <div class="d-flex">
+                  <button class="btn-darkn text-light m-1">
+                    <a :href="'./account.html?id='+account.id"
+                      class="text-decoration-none btn-darkn text-light p-3">Detail</a>
+                  </button>
+                  <button @click="functionDelete(account)"
+                    class="btn-darkn m-1 p-3 d-flex justify-content-center align-items-center">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <div class=" cardaccounts  bg-body text-dark">
+        <div class="m-2 d-sm-flex d-md-flex d-lg-flex d-xl-flex d-xxl-flex justify-content-center">
+          <p class="font h4 m-1 p-1"> Total Account Balance: {{newNumber( totalAccountsBalance)}}</p>
+        </div>
+      </div>
+
+      <section
+        class="d-sm-flex d-md-flex d-lg-flex d-xl-flex d-xxl-flex justify-content-center align-items-center textaccount">
+        <div class="d-flex justify-content-center ">
+          <img src="./videos/Investment-data.gif" class="imgAccounts" alt="">
+        </div>
+        <div class="d-flex flex-column justify-content-center text-center ">
+          <h3>{{clients.firstName}},</h3>
+          <h3>You can request up to 3 loans.</h3>
+          <h3>To create loans you can click here!</h3>
+          <div v-if="loans.length == 3">
+            <p>Sorry, you can not create more loans!<i class="bi bi-emoji-frown"></i></p>
+          </div>
+          <div v-else>
+              <button>
+                <a class=" text-decoration-none text-light" href="./loan-application.html">Create Loans</a>
+              </button>
+          </div>
+        </div>
+      </section>
+
+      <section class=" d-flex flex-column justify-content-center align-items-center textaccount">
+
+        <div class=" m-5">
+          <h2 class="font h1 text-center text-black border-bottom">Loans</h2>
+        </div>
+        <div class=" d-lg-flex d-xl-flex d-xxl-flex justify-content-center align-items-center">
+          <div>
+            <img src="./assets/Helpingapartner-rafiki.png" class="imgAccounts" alt="">
+          </div>
+          <div class="cardaccounts  bg-body text-dark" v-for="loan in loans">
+            <div class="m-2">
+              <hr>
+              <p class="font h4">Name: {{loan.name}}</p>
+              <hr>
+              <p class="font h4">Amount: {{newNumber(loan.amount)}}</p>
+              <hr>
+              <p class="font h4">Payments: {{loan.payments}}</p>
+              <hr>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+
+      <div class=" cardaccounts  bg-body text-dark">
+        <div class="m-2 d-sm-flex d-md-flex d-lg-flex d-xl-flex d-xxl-flex justify-content-center">
+          <p class="font h4 m-1 p-1"> Total Loan Balance: {{newNumber(totalLoansBalance)}}</p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-black bg-opacity-50 d-flex justify-content-around align-items-center">
+        <div>
+          <ul class="d-flex gap-3">
+            <li><a href="https://www.facebook.com"><img class="logoFooter" src="./assets/facebookFooter.png" alt=""></a></li>
+            <li><a href="https://www.instagram.com"><img class="logoFooter"  src="./assets/instagramFooter.png" alt=""></a></li>
+            <li><a href="www.whatsapp.com"><img class="logoFooter"  src="./assets/whatsappFooter.png" alt=""></a></li>
+          </ul>
+        </div>
+        <div class="font3"><h5>HOMEBANKING APPLICATION BY MATIAS SEGOVIA</h5></div>
+       
+    </footer>
+
+
+
+  </div>
+  <!--   BOOTRAP -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+  <!-- AXIOS -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- SWEETALERT -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- VUEJS -->
+  <script src="https://unpkg.com/vue@3"></script>
+  <!-- JS -->
+  <script src="./accounts.js"></script>
+</body>
+
+</html>

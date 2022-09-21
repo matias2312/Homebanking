@@ -1,0 +1,217 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  [v-cloak] {
+    display: none;
+  }
+  
+  body {
+    background-image: url(./loan-appli3.jpg);
+    object-fit: cover;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  
+  
+  
+  nav {
+  
+    background: rgba(10, 9, 9, 0.474);
+  
+  }
+  
+  main {
+    min-height: 80vh;
+  
+  }
+  .formloanapplication{
+    width: 500px;
+    padding: 30px;
+    background-color: rgba(5, 4, 4, 0.33);
+    
+  }
+  h5{
+    color: #e0dede;
+  }
+  
+  .cardaccounts {
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px 5px;
+    padding: 10px;
+    margin: 10px;
+  
+  }
+  
+  .cardaccounts:hover {
+    transform: scale(1.001, 1);
+  }
+  
+/*   .textaccount {
+    background: #e0dede;
+  } */
+  
+  .imgAccounts {
+    width: 500px;
+    height: 500px;
+  }
+  
+  #imgLogo {
+    width: 50px;
+    background-color: rgb(232, 232, 232);
+    border-radius: 2rem;
+  }
+  
+  .imgAccounts {
+    width: 400px;
+    height: 400px;
+  
+  }
+  .font1 {
+    font-family: 'Lobster', cursive;
+    font-family: 'Roboto', sans-serif;
+    font-size: 40px;
+    
+  }
+  .logo1{
+    margin-left: 1rem;
+     border-radius: 2rem;
+     width: 60px !important;
+     height: 60px !important;
+  
+  }
+  
+  .textaccount {
+    background: #e0dede;
+  }
+.title{
+    font-size: 30px;
+   }
+  
+  .imgnav {
+    width: 40px;
+    margin-right: 10px;
+  }
+  
+  .navborder {
+    border-radius: 50px;
+  }
+  
+  .btncard {
+    background: rgb(0, 0, 0);
+  }
+  
+  .cursive {
+    font-family: 'Lobster', cursive;
+    font-family: 'Roboto', sans-serif;
+    font-size: 50px;
+    color: #f7fafc;
+  
+  }
+  
+  .cursivee {
+    font-family: 'Lobster', cursive;
+    font-size: 30px;
+    color: #f7fafc;
+  }
+
+  .textloan {
+    font-family: 'Lobster', cursive;
+    font-family: 'Roboto', sans-serif;
+    font-size: 55px;
+    color: #16191b;
+    margin: 1rem;
+  
+  }
+  
+  .font {
+    font-family: 'Lobster', cursive;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  
+  footer {
+    height: 10vh;
+  }
+  
+  @media (min-width: 500px) and (max-width: 800px) {
+    .formtransfer {
+  
+      padding: 30px;
+      background-color: rgba(5, 4, 4, 0.33);
+    }
+    .formloanapplication{
+      width: 500px;
+      padding: 30px;
+      background-color: rgba(5, 4, 4, 0.33); 
+    }
+  
+    .cursive {
+      font-family: 'Lobster', cursive;
+      font-family: 'Roboto', sans-serif;
+      font-size: 40px;
+      color: #f7fafc;
+  
+    }
+  
+    .imgAccounts {
+      width: 300px;
+      height: 300px;
+  
+    }
+  
+  }
+  
+  @media (min-width: 300px) and (max-width: 500px) {
+    .formtransfer {
+      width: 375px;
+      padding: 30px;
+      background-color: rgba(5, 4, 4, 0.33);
+    }
+    .formloanapplication{
+      width: 375px;
+      padding: 30px;
+      background-color: rgba(5, 4, 4, 0.33);
+      
+    }
+    .textloan {
+      font-family: 'Lobster', cursive;
+      font-family: 'Roboto', sans-serif;
+      font-size: 40px;
+      color: #16191b;
+      margin: 1rem;
+      text-align: center;
+    
+    }
+    
+  
+    .cursive {
+      font-family: 'Lobster', cursive;
+      font-family: 'Roboto', sans-serif;
+      font-size: 25px;
+      color: #f7fafc;
+  
+    }
+    .imgAccounts {
+      width: 200px;
+      height: 200px;
+  
+    }
+  
+    .cardaccounts {
+      border-radius: none;
+      box-shadow: none;
+      padding: 5px;
+      margin: 5px;
+  
+    }
+  
+    .cardaccounts:hover {
+      transform: none;
+    }
+  
+  
+  }

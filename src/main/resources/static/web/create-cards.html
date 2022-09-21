@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./assets/cards.css">
+    <link rel="shortcut icon" href="./assets/bull-side-view-black-animal-shape.png" type="image/x-icon">
+    <title>Create-Cards</title>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <header class="bg-black bg-opacity-50  sticky-top">
+            <nav class="navbar navbar-expand navbar-dark d-flex justify-content-around ">
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-light" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i
+                            class="bi bi-list"></i></button>
+                    <a class="navbar-brand ps-3 h2 cursive" href="#">Mindhub Brothers Bank</a>
+                </div>
+            </nav>
+
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasScrolling"
+                aria-labelledby="offcanvasScrollingLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title font1 text-black h3" id="offcanvasScrollingLabel">MindHub BB</h5>
+                    <img src="./assets/bull-side-view-black-animal-shape.png" alt="" class="logo1">
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body d-flex flex-column align-items-center">
+                    <a class="list-group-item list-group-item-action list-group-item-light navborder p-3"
+                        href="./accounts.html"><img src="./videos/bancoNav.gif" class="imgnav" alt=""> Accounts</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light navborder p-3"
+                        href="./cards.html"><img src="./videos/tarjeta-de-creditoNav.gif" class="imgnav"
+                            alt="">Cards</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light navborder p-3"
+                        href="./transfers.html"><img src="./videos/intercambioNav.gif" class="imgnav" alt="">
+                        Transfers</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light navborder p-3"
+                        href="./loan-application.html"><img src="./videos/bolsa-de-dineroNAV.gif" class="imgnav"
+                            alt="">Loans Application</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light navborder p-3"
+                        href="./payments.html"><img src="./videos/pago-por-clicNAV.gif" class="imgnav" alt="">
+                        Payments</a>
+                    <a v-show="email == 'admin@mindhub.com'"
+                        class="list-group-item list-group-item-action list-group-item-light btn navborder m-3 p-3"
+                        href="./createLoan.html"><img src="./videos/coheteNav.gif" class="imgnav" alt=""> Create Loan
+                    </a>
+                    <form class="w-50 m-2" @submit.prevent="logout">
+                        <button type="submit" class="btn btn-primary">Logout</button>
+                    </form>
+                </div>
+            </div>
+
+        </header>
+
+        <main class="d-flex flex-column justify-content-center align-items-center bg-black bg-opacity-50 shadow p-3">
+            <div class="createcards d-flex flex-column gap-3">
+                <div class="d-flex flex-column gap-3">
+                    <p class="text-white h3">Choose type of card</p>
+                    <select class="form-select" aria-label="Default select example" v-model="cardType">
+                        <option value="CREDIT">Credit</option>
+                        <option value="DEBIT">Debit</option>
+                    </select>
+                </div>
+                <div class="d-flex flex-column gap-3">
+                    <p class="text-white h3">Choose card color</p>
+                    <select class="form-select" aria-label="Default select example" v-model="cardColor">
+                        <option value="SILVER">Silver</option>
+                        <option value="GOLD">Gold</option>
+                        <option value="TITANIUM">Titanium</option>
+                    </select>
+                </div>
+                <div class="d-flex flex-column gap-3">
+                    <p class="text-white h3">Choose Account</p>
+                    <select class="form-select" v-model="accountOrigin">
+                        <option v-for="account in accounts" :value="account.number" v-show="account.active == true">{{account.number}}</option>
+                    </select>
+                </div>
+                <div class="d-flex" v-if="cardColor == false  ||  cardType == false">
+                    <button disabled @click="newCards" class="p-2 m-2 btn btn-success">Create card </button>
+                    <p class="text-light d-flex justify-content-center align-items-center">Please, fill in the fields.
+                    </p>
+                </div>
+                <div v-else>
+                    <button @click="newCards" class="p-2 m-2 btn btn-success">Create card </button>
+                </div>
+            </div>
+
+
+        </main>
+        <footer class="bg-black bg-opacity-50">
+
+        </footer>
+
+
+
+    </div>
+    <!--BOOSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+    <!--AXIOS -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!--SWEETALERT -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- VUEJS -->
+    <script src="https://unpkg.com/vue@3"></script>
+    <!--JS -->
+    <script src="./create-cards.js"></script>
+</body>
+
+</html>

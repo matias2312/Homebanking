@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./assets/cards.css">
+    <link rel="shortcut icon" href="./assets/bull-side-view-black-animal-shape.png" type="image/x-icon">
+    <title>Cards</title>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <header class="bg-black bg-opacity-50  sticky-top">
+            <nav class="navbar navbar-expand navbar-dark d-flex justify-content-around ">
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-light" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i
+                            class="bi bi-list"></i></button>
+                    <a class="navbar-brand ps-3 h2 cursive" href="#">Mindhub Brothers Bank</a>
+                </div>
+            </nav>
+
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasScrolling"
+                aria-labelledby="offcanvasScrollingLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title font1 text-black h3" id="offcanvasScrollingLabel">MindHub BB</h5>
+                    <img src="./assets/bull-side-view-black-animal-shape.png" alt="" class="logo1">
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body d-flex flex-column align-items-center">
+                    <a class="list-group-item list-group-item-action list-group-item-light navborder  p-3"
+                        href="./accounts.html"><img src="./videos/bancoNav.gif" class="imgnav" alt=""> Accounts</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light navborder  p-3"
+                        href="#"><img src="./videos/tarjeta-de-creditoNav.gif" class="imgnav"
+                            alt="">Cards</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light navborder p-3"
+                        href="./transfers.html"><img src="./videos/intercambioNav.gif" class="imgnav" alt="">
+                        Transfers</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light navborder p-3"
+                        href="./loan-application.html"><img src="./videos/bolsa-de-dineroNAV.gif" class="imgnav"
+                            alt="">Loans Application</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light navborder p-3"
+                        href="./payments.html"><img src="./videos/pago-por-clicNAV.gif" class="imgnav" alt="">
+                        Payments</a>
+                    <a v-show="email == 'admin@mindhub.com'"
+                        class="list-group-item list-group-item-action list-group-item-light btn navborder m-3 p-3"
+                        href="./createLoan.html"><img src="./videos/coheteNav.gif" class="imgnav" alt=""> Create Loan
+                    </a>
+                    <form class="w-50 m-2" @submit.prevent="logout">
+                        <button type="submit" class="btn btn-primary">Logout</button>
+                    </form>
+                </div>
+            </div>
+
+        </header>
+
+        <main class="d-flex flex-column justify-content-center bg-black bg-opacity-50 shadow p-3">
+
+            <section
+                class="d-sm-flex d-md-flex d-lg-flex d-xl-flex d-xxl-flex justify-content-center align-items-center textaccount">
+                <div class="d-flex justify-content-center  ">
+                    <img src="./videos/E-Wallet (2).gif" class="imgAccounts" alt="">
+                </div>
+                <div class="d-flex flex-column justify-content-center text-center ">
+                    <h3>{{clients.firstName}},</h3>
+                    <h3>You can request up to 3 credit cards and 3 debit cards.</h3>
+                    <h3>To create cards you can click here!</h3>
+
+                    <div v-if="cardFilter.length == 6">
+                        <p>Sorry, you can not create more Cards!<i class="bi bi-emoji-frown"></i></p>
+                    </div>
+                    <div v-else>
+                        <button class="btn btn-dark text-decoration-none">
+                            <a class=" text-decoration-none text-light" href="./create-cards.html">Create Cards</a>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+
+            <div class="m-5 ">
+                <h1 class="font h1 text-center text-light border-bottom ">Cards</h1>
+            </div>
+
+            <section class="d-sm-flex d-md-flex d-lg-flex d-xl-flex d-xxl-flex justify-content-around">
+
+                <div >
+                    <div class="m-5 ">
+                        <h2 class="font h3 text-center text-light  border-bottom ">Debits
+                            Cards</h2>
+                    </div>
+                    <div class="card" v-if="cardsDebits != 0" v-for="card in cardsDebits" v-show="card.active == true">
+                        <button @click="functionDelete(card)" class="btn-dark btn gradient m-1">delete</button>
+                        <div class="flip">
+                            <div
+                                :class="{ 'frontGold' : card.cardColor == 'GOLD' , 'frontSilver' : card.cardColor == 'SILVER' , 'front' : card.cardColor == 'TITANIUM' }">
+                                <img src="./assets/bull-side-view-black-animal-shape.png" alt="" class="logoCard">
+                                <div class="bg-danger" v-show="today > card.thruDate">
+                                    <p>expirado</p>
+                                </div>
+                                <div class="investor">MH Brothers Bank</div>
+                                <div class="chip">
+                                    <img src="./assets/chip.png" alt="">
+                                </div>
+                                <img src="./assets/contactless.png" alt="" class="wave">
+                                <div class="card-number">
+                                    <div class="section">{{card.number}}</div>
+
+                                </div>
+                                <div class="end"><span class="end-text">exp. end:</span><span class="end-date">
+                                        {{newDate(card.thruDate)}}</span></div>
+                                <div class="card-holder">{{card.cardHolder}} {{card.cardType}}</div>
+                                <div class="master">
+                                    <div class="circle master-red"></div>
+                                    <div class="circle master-yellow"></div>
+                                </div>
+                            </div>
+                            <div class="back">
+                                <div class="">{{card.cardColor}}</div>
+                                <div class="strip-black"></div>
+                                <div class="ccv"><label>ccv</label>
+                                    <div>{{card.cvv}}</div>
+                                </div>
+                                <div class="terms">
+                                    <p>This card is property of The MindHub Bank. Misuse is criminal offence. If found,
+                                        please return to Monzo Bank or to the nearest bank with MasterCard logo.
+                                    </p>
+                                    <p>Use of this card is subject to the credit card agreement.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!--    <button @click="functionDelete(card.id)" class="btn-dark btn gradient mt-5">delete</button> -->
+                    </div>
+                    <div v-else class="h1 text-danger">You do not have cards</div>
+                </div>
+
+                <div>
+                    <div class="m-5 ">
+                        <h2 class="font h3 text-center text-light  border-bottom ">Credits
+                            Cards</h2>
+                    </div>
+                    <div class="card" v-if="cardsCredits != 0" v-for="card in cardsCredits"
+                        v-show="card.active == true">
+                        <button @click="functionDelete(card)" class="btn-dark btn gradient m-1">delete</button>
+                        <div class="flip">
+                            <div
+                                :class="{ 'frontGold' : card.cardColor == 'GOLD' , 'frontSilver' : card.cardColor == 'SILVER' , 'front' : card.cardColor == 'TITANIUM' }">
+
+                                <div class="strip-top"></div>
+                                <div class="bg-danger" v-show="today > card.thruDate">
+                                    <p class="h4">expirado</p>
+                                </div>
+
+                                <img src="./assets/bull-side-view-black-animal-shape.png" alt="" class="logoCard">
+
+                                <div class="investor">MH Brothers Bank</div>
+                                <div class="chip">
+                                    <img src="./assets/chip.png" alt="">
+                                </div>
+                                <img src="./assets/contactless.png" alt="" class="wave">
+                                <div class="card-number">
+                                    <div class="section">{{card.number}}</div>
+
+                                </div>
+                                <div class="end"><span class="end-text">exp. end:</span><span class="end-date">
+                                        {{newDate(card.thruDate)}}</span></div>
+                                <div class="card-holder">{{card.cardHolder}} {{card.cardType}}</div>
+                                <div class="master">
+                                    <div class="circle master-red"></div>
+                                    <div class="circle master-yellow"></div>
+                                </div>
+                            </div>
+                            <div class="back">
+                                <div>{{card.cardColor}}</div>
+                                <div class="strip-black"></div>
+                                <div class="ccv"><label>ccv</label>
+                                    <div>{{card.cvv}}</div>
+                                </div>
+                                <div class="terms">
+                                    <p>This card is property of The MindHub Bank. Misuse is criminal offence. If found,
+                                        please return to Monzo Bank or to the nearest bank with MasterCard logo.
+                                    </p>
+                                    <p>Use of this card is subject to the credit card agreement.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-else class="h1 text-danger">You do not have cards</div>
+                </div>
+
+            </section>
+
+
+        </main>
+        <footer class="bg-black bg-opacity-50 d-flex justify-content-around align-items-center">
+          <!--   <div>
+              <ul class="d-flex gap-3">
+                <li><a href="https://www.facebook.com"><img class="logoFooter" src="./assets/facebookFooter.png" alt=""></a></li>
+                <li><a href="https://www.instagram.com"><img class="logoFooter"  src="./assets/instagramFooter.png" alt=""></a></li>
+                <li><a href="https://www.whatsapp.com"><img class="logoFooter"  src="./assets/whatsappFooter.png" alt=""></a></li>
+              </ul>
+            </div>
+            <div class="font3"><h5>HOMEBANKING APPLICATION BY MATIAS SEGOVIA</h5></div>   -->       
+        </footer>
+
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="./cards.js"></script>
+</body>
+
+</html>
