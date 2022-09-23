@@ -24,9 +24,9 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/clients/current/loan/create").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.POST, "/api/clients/current/accounts","/api/clients/current/cards","/api/clients/current/transactions","/api/clients/current/loan","/api/clients/current/transactions/payments","/api/download","/api/transactions/filtered").hasAnyAuthority("CLIENT","ADMIN")
                 //cuando trabajamos con sprint security limitamos el acceso, de esta foma vamos liberand//dar acceso a las rutas, en este caso a todos
-                .antMatchers("/web/index.html","/web/index.js","/web/assets/style.css","/web/assets/**","/web/videos/**","/web/download").permitAll()
+                .antMatchers("/web/index.js","/web/assets/style.css","/web/assets/**","/web/videos/**","/web/download","/index.html").permitAll()
 
-                .antMatchers("/rest/**","/h2-console","/clients/current").hasAuthority("ADMIN")
+                .antMatchers("/rest/**","/h2-console","/clients/current","/web/manager.html").hasAuthority("ADMIN")
 
                 .antMatchers("/web/**").hasAnyAuthority("CLIENT","ADMIN");
 
