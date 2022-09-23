@@ -42,6 +42,7 @@ public class ClientController {
     public ClientDTO getClient(@PathVariable Long id) {
         return new ClientDTO(clientService.getClientById(id));
     }
+
     @PostMapping("/clients")
     public ResponseEntity<Object> register(
             @RequestParam String firstName, @RequestParam String lastName,

@@ -68,19 +68,19 @@
                 <div class="formloanapplication"  >
           <div>
             <label for="name" class="h5 text-light">Loan Name</label>
-            <input class="form-control" type="text" min="0.1" v-model="name" required>
+            <input id="name" class="form-control" type="text" min="0.1" v-model="name" required>
           </div>
           <div>
             <label for="payments" class="h5 text-light">Payments</label>
-            <input class="form-control" type="text" placeholder="12,24,48.." v-model="payments" required>
+            <input id="payments"  class="form-control" type="text" placeholder="12,24,48.." v-model="payments" required>
           </div>
           <div>
             <label for="maxAmount" class="h5 text-light">Max Amount</label>
-            <input class="form-control" type="number" min="0.1"  v-model="maxAmount" required>
+            <input id="maxAmount" class="form-control" type="number" min="0.1"  v-model="maxAmount" required>
           </div>
           <div>
             <label for="interest" class="h5 text-light">Interest</label>
-            <input class="form-control" type="number" min="0.1" v-model="interest" required>
+            <input id="interest" class="form-control" type="number" min="0.1" v-model="interest" required>
           </div>
           <div class="d-flex c align-items-center"
           v-if="name == false || payments == false || interest <= 0 || maxAmount <= 0">
@@ -133,7 +133,7 @@
   <!-- VUE JS -->
   <script src="https://unpkg.com/vue@3"></script>
   <!--  JAVASCRIPT -->
-  <script src="./ loan-application.js"></script>
+  <script src="./loan-application.js"></script>
 </body>
 
 </html>

@@ -91,6 +91,7 @@ public class TransactionController {
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
     @Transactional
     @PostMapping("/clients/current/transactions/payments")
     public ResponseEntity<Object> newPayments(Authentication authentication, @RequestBody PaymentsDTO paymentsDTO){
@@ -98,9 +99,7 @@ public class TransactionController {
         Card cardNumber = cardService.getCardByNumber(paymentsDTO.getNumber());
         int cvv = cardNumber.getCvv();
 
-
         Account accountOrigin = cardNumber.getAccount();
-
 
         if (client == null){
             return new ResponseEntity<>("client does not exist", HttpStatus.FORBIDDEN);
@@ -114,12 +113,9 @@ public class TransactionController {
         if(paymentsDTO.getCvv() != cvv){
             return new ResponseEntity<>("cvv invalid", HttpStatus.FORBIDDEN);
         }
-
         if (paymentsDTO.getAmount() <= 0 ){
            return new ResponseEntity<>("invalid amount", HttpStatus.FORBIDDEN);
         }
-
-
         if(accountOrigin == null){
             return new ResponseEntity<>("account does not exist", HttpStatus.FORBIDDEN);
         }

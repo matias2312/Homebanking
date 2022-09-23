@@ -31,10 +31,8 @@ public class AccountServiceImplement implements AccountService {
         return  accountRepository.findByNumber(number);
     }
 
-
     @Override
     public void saveAccount(Account account){
         accountRepository.save(account);
     }
-
 }

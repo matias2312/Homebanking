@@ -54,7 +54,6 @@
           </form>
         </div>
       </div>
-
     </header>
 
     <main class="bg-black bg-opacity-50 d-lg-flex d-xl-flex d-xxl-flex justify-content-around align-items-center">
@@ -88,18 +87,18 @@
           <input class="form-control" type="number" min="0.1" name="amount" id="amount" v-model="amount" required>
           <h5>Destiny account</h5>
           <select class="form-select w-100" aria-label="Default select example" v-model="accountDestination" >
-            <option v-for="account in accounts" :value="account.number" v-show="account.active == true">{{account.number}}</option>
+            <option v-for="account in accounts" :value="account.number" v-show="account.active">{{account.number}}</option>
           </select>
           <div v-if="loanId && amount > 0" class="d-flex flex-column">
-            <label for="subtotal" class="h5 text-light">Amount of payments</label>
-            <input class="form-control" type="text" disabled
-              :value="((loans.filter(l => l.id == loanId)[0].interest * amount / 100) + amount) / payments">
-            <label for="subtotal" class="h5 text-light">Total to pay</label>
-            <input class="form-control" type="text" disabled
-              :value="(loans.filter(l => l.id == loanId)[0].interest * amount / 100) + amount">
+            <label for="subtotal" class="h5 text-light">Amount of payments: {{newNumber(((loans.filter(l => l.id == loanId)[0].interest * amount / 100) + amount) / payments)}}</label>
+           <!--  <input class="form-control" type="text" disabled
+              :value="((loans.filter(l => l.id == loanId)[0].interest * amount / 100) + amount) / payments"> -->
+            <label for="subtotal" class="h5 text-light">Total to pay:  {{newNumber((loans.filter(l => l.id == loanId)[0].interest * amount / 100) + amount)}}</label>
+           <!--  <input class="form-control" type="text" disabled
+              :value="(loans.filter(l => l.id == loanId)[0].interest * amount / 100) + amount"> -->
           </div>
           <div class="d-flex c align-items-center"
-            v-if="accountDestination == false || payments == false || loanId == false || amount <= 0">
+            v-if="!accountDestination || !payments || !loanId || amount <= 0">
             <button disabled type="button" class="btn btn-primary m-3" data-bs-toggle="modal"
               data-bs-target="#staticBackdrop">
               Apply
@@ -162,7 +161,7 @@
   <!-- VUE JS -->
   <script src="https://unpkg.com/vue@3"></script>
   <!--  JAVASCRIPT -->
-  <script src="./ loan-application.js"></script>
+  <script src="./loan-application.js"></script>
 </body>
 
 </html>
