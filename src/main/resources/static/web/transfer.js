@@ -43,7 +43,7 @@ createApp({
   
         logout(){
             axios.post('/api/logout')
-            .then(response => location.href = "/web/index.html")
+            .then(response => location.href = "/index.html")
         },
         newTransfer(){
             axios.post("/api/clients/current/transactions",`accountOrigin=${this.accountOrigin}&accountDestiny=${this.accountDestiny}&amount=${this.amount}&description=${this.description}`,

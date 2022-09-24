@@ -72,7 +72,7 @@ createApp({
   
         logout(){
             axios.post('/api/logout')
-            .then(response => location.href = "/web/index.html")
+            .then(response => location.href = "/index.html")
         },
         newAccount(){
 
