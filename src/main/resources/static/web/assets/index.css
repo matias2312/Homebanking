@@ -1,4 +1,4 @@
-* {
+/* * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -65,14 +65,10 @@ h3,li {
     width: 60px !important;
     height: 60px !important;
 
-}
-
-/* footer{
-    height: 10vh;
 } */
 
 /* LOGIN */
-.main {
+/* .main {
     width: 350px;
     height: 500px;
     margin-top: 100px;
@@ -200,4 +196,4 @@ button:hover {
         color: #fff;
     }
     
-}
+} */
