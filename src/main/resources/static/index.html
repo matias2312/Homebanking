@@ -21,14 +21,18 @@
 
     </header>
     <main> 
-      <section class="d-md-flex d-lg-flex d-xl-flex d-xxl-flex justify-content-center align-items-center" id="sectionlogin">
-        <div class="overlay"></div>
-      <video muted autoplay loop>
-          <source src="./web/videos/Atraderperforming.mp4" type="video/mp4">
-      </video>
-        <div class=" d-flex flex-column justify-content-center gap-3" id="textlogin">
+      <section class=" d-lg-flex d-xl-flex d-xxl-flex justify-content-center align-items-center" id="sectionlogin">
+   <!-- video -->
+        <div>
+          <div class="overlay"></div>
+          <video muted autoplay loop>
+              <source src="./web/videos/Atraderperforming.mp4" type="video/mp4">
+          </video>
+        </div>
+    <!-- text -->
+        <div class=" d-flex flex-column justify-content-center align-items-center gap-3" id="textlogin">
           <h1 class="">MINDHUB BROTHERS BANK</h1>
-          <h3>We seek to revolutionize the way people relate to their bank and manage their money. Through technology and design:</h3>
+          <h3 class="text-center">We seek to revolutionize the way people relate to their bank and manage their money. Through technology and design:</h3>
           <ul>
             <li>We offer a simple, dynamic and transparent experience.</li>
             <li> We facilitate smart decision making.</li>
@@ -36,10 +40,11 @@
             <li>We enhance the social and environmental impact.</li>
           </ul>
         </div>
+       <!--  Login/SignUp -->
+       <div class=" d-flex justify-content-center">
         <div class="main">
           <input type="checkbox" id="chk" aria-hidden="true"> 
-      
-          <div class="signup">
+           <div class="signup">
             <form @submit.prevent="register">
               <label for="chk" aria-hidden="true">Sign up</label>
               <input type="text" name="txt"  v-model="firstName" placeholder="First name" required="">
@@ -59,6 +64,7 @@
             </form>
           </div>
         </div>
+      </div>
       </section>
   
      </main>

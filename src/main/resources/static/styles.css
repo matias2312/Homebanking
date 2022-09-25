@@ -9,7 +9,6 @@
 }
 
 body {
-  
     font-family: 'Raleway', sans-serif;
 }
 
@@ -166,14 +165,12 @@ button:hover {
 #chk:checked~.signup label {
     transform: scale(.6);
 }
-
-
-@media (min-width: 300px) and (max-width: 800px) {
+@media (min-width: 500px) and (max-width: 800px) {
     .main {
         width: 330px;
         height: 500px;
-        margin-top: 5px;
-        margin-left: 5px;
+        margin-top: 0;
+        margin-left: 0;
         background: rgb(226, 211, 211);
         overflow: hidden;
         border-radius: 10px;
@@ -194,6 +191,39 @@ button:hover {
       
     }
     
+    h3,li {
+        font-size: 15px;
+        font-weight: 900;
+        z-index: 100;
+        color: #fff;
+    }
+    
+}
+
+@media (min-width: 300px) and (max-width: 500px) {
+    .main {
+        width: 330px;
+        height: 500px;
+        margin-top: 0;
+        margin-left: 0;
+        background: rgb(226, 211, 211);
+        overflow: none;
+        border-radius: 10px;
+        box-shadow: 5px 20px 50px #000;
+    }
+
+    #textlogin {
+        width: 100%;
+        position: relative;
+        padding: 15px;
+        background-color: rgb(231, 231, 231, 0.33);
+    }
+    h1 {
+        font-size: 23px;
+        font-weight: 900;
+        z-index: 100;
+        color: #fff;
+    }
     h3,li {
         font-size: 15px;
         font-weight: 900;
