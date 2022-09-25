@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="./styles/cards.css">
-    <link rel="shortcut icon" href="./assets/bull-side-view-black-animal-shape.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./styles/assets/bull-side-view-black-animal-shape.png" type="image/x-icon">
     <title>Cards</title>
 </head>
 
@@ -31,7 +31,7 @@
                 aria-labelledby="offcanvasScrollingLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title font1 text-black h3" id="offcanvasScrollingLabel">MindHub BB</h5>
-                    <img src="./assets/bull-side-view-black-animal-shape.png" alt="" class="logo1">
+                    <img src="./styles/assets/bull-side-view-black-animal-shape.png" alt="" class="logo1">
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body d-flex flex-column align-items-center">
@@ -96,15 +96,15 @@
                         <div class="flip">
                             <div
                                 :class="{ 'frontGold' : card.cardColor == 'GOLD' , 'frontSilver' : card.cardColor == 'SILVER' , 'front' : card.cardColor == 'TITANIUM' }">
-                                <img src="./assets/bull-side-view-black-animal-shape.png" alt="" class="logoCard">
+                                <img src="./styles/assets/bull-side-view-black-animal-shape.png" alt="" class="logoCard">
                                 <div class="bg-danger" v-show="today > card.thruDate">
                                     <p>expirado</p>
                                 </div>
                                 <div class="investor">MH Brothers Bank</div>
                                 <div class="chip">
-                                    <img src="./assets/chip.png" alt="">
+                                    <img src="./styles/assets/chip.png" alt="">
                                 </div>
-                                <img src="./assets/contactless.png" alt="" class="wave">
+                                <img src="./styles/assets/contactless.png" alt="" class="wave">
                                 <div class="card-number">
                                     <div class="section">{{card.number}}</div>
 
@@ -152,13 +152,13 @@
                                     <p class="h4">expirado</p>
                                 </div>
 
-                                <img src="./assets/bull-side-view-black-animal-shape.png" alt="" class="logoCard">
+                                <img src="./styles/assets/bull-side-view-black-animal-shape.png" alt="" class="logoCard">
 
                                 <div class="investor">MH Brothers Bank</div>
                                 <div class="chip">
-                                    <img src="./assets/chip.png" alt="">
+                                    <img src="./styles/assets/chip.png" alt="">
                                 </div>
-                                <img src="./assets/contactless.png" alt="" class="wave">
+                                <img src="./styles/assets/contactless.png" alt="" class="wave">
                                 <div class="card-number">
                                     <div class="section">{{card.number}}</div>
 

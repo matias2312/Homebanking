@@ -9,7 +9,8 @@
 }
 
 body {
-	background-image: url(./12418-ciudade.jpg);
+
+	background-image: url(./assets/12418-ciudades.jpg);
 	background-size: cover;
 	background-position: center;
 	background-attachment: fixed;
