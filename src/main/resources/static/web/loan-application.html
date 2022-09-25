@@ -10,8 +10,7 @@
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="./assets/loan-application.css">
-
+  <link rel="stylesheet" href="./styles/loan-application.css">
   <link rel="shortcut icon" href="./assets/bull-side-view-black-animal-shape.png" type="image/x-icon">
   <title>Loan Application</title>
 </head>
@@ -90,12 +89,8 @@
             <option v-for="account in accounts" :value="account.number" v-show="account.active">{{account.number}}</option>
           </select>
           <div v-if="loanId && amount > 0" class="d-flex flex-column">
-            <label for="subtotal" class="h5 text-light">Amount of payments: {{newNumber(((loans.filter(l => l.id == loanId)[0].interest * amount / 100) + amount) / payments)}}</label>
-           <!--  <input class="form-control" type="text" disabled
-              :value="((loans.filter(l => l.id == loanId)[0].interest * amount / 100) + amount) / payments"> -->
-            <label for="subtotal" class="h5 text-light">Total to pay:  {{newNumber((loans.filter(l => l.id == loanId)[0].interest * amount / 100) + amount)}}</label>
-           <!--  <input class="form-control" type="text" disabled
-              :value="(loans.filter(l => l.id == loanId)[0].interest * amount / 100) + amount"> -->
+            <label  class="h5 text-light">Amount of payments: {{newNumber(((loans.filter(l => l.id == loanId)[0].interest * amount / 100) + amount) / payments)}}</label>
+            <label  class="h5 text-light">Total to pay:  {{newNumber((loans.filter(l => l.id == loanId)[0].interest * amount / 100) + amount)}}</label>
           </div>
           <div class="d-flex c align-items-center"
             v-if="!accountDestination || !payments || !loanId || amount <= 0">
@@ -111,10 +106,7 @@
             </button>
           </div>
         </div>
-
       </section>
-
-
       <!-- Modal -->
       <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -127,7 +119,6 @@
             <div class="modal-body">
               <ul>
                 <li class="h5 text-black">Destination account: {{accountDestination}}</li>
-                <!--   <li>Amount: {{newNumber(amount + amount * mortgage)}}</li> -->
                 <li v-show="loanId == '1'" class="h5 text-black">Amount: {{ newNumber(amount * mortgage)}}</li>
                 <li v-show="loanId == '2'" class="h5 text-black">Amount: {{ newNumber(amount * personal)}}</li>
                 <li v-show="loanId == '3'" class="h5 text-black">Amount: {{ newNumber(amount * automotive)}}</li>
@@ -142,12 +133,8 @@
         </div>
       </div>
     </main>
-
-
     <footer class="bg-black bg-opacity-50">
-
     </footer>
-
   </div>
   <!-- BOOSTRAP -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
@@ -161,7 +148,7 @@
   <!-- VUE JS -->
   <script src="https://unpkg.com/vue@3"></script>
   <!--  JAVASCRIPT -->
-  <script src="./loan-application.js"></script>
+  <script src="./scripts/loan-application.js"></script>
 </body>
 
 </html>

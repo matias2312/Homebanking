@@ -10,9 +10,8 @@
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-  <!--  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-  <link rel="stylesheet" href="./assets/style.css">
+  <link rel="stylesheet" href="./styles/style.css">
   <link rel="shortcut icon" href="./assets/bull-side-view-black-animal-shape.png" type="image/x-icon">
   <title>accounts</title>
 </head>
@@ -25,7 +24,6 @@
           <button class="btn btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
             aria-controls="offcanvasScrolling"><i class="bi bi-list"></i></button>
           <a class="navbar-brand ps-3 h2 cursive" href="#">Mindhub Brothers Bank</a>
-
         </div>
       </nav>
 
@@ -75,12 +73,10 @@
           </div>
           <div v-else>
             <form>
-              <!-- <button>create account</button> -->
               <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 create account
               </button>
             </form>
-
           </div>
         </div>
       </section>
@@ -157,9 +153,9 @@
             <p>Sorry, you can not create more loans!<i class="bi bi-emoji-frown"></i></p>
           </div>
           <div v-else>
-              <button>
-                <a class=" text-decoration-none text-light" href="./loan-application.html">Create Loans</a>
-              </button>
+            <button>
+              <a class=" text-decoration-none text-light" href="./loan-application.html">Create Loans</a>
+            </button>
           </div>
         </div>
       </section>
@@ -186,10 +182,6 @@
           </div>
         </div>
       </section>
-
-
-
-
       <div class=" cardaccounts  bg-body text-dark">
         <div class="m-2 d-sm-flex d-md-flex d-lg-flex d-xl-flex d-xxl-flex justify-content-center">
           <p class="font h4 m-1 p-1"> Total Loan Balance: {{newNumber(totalLoansBalance)}}</p>
@@ -198,21 +190,22 @@
     </main>
 
     <footer class="bg-black bg-opacity-50 d-flex justify-content-around align-items-center">
-        <div>
-          <ul class="d-flex gap-3">
-            <li><a href="https://www.facebook.com"><img class="logoFooter" src="./assets/facebookFooter.png" alt=""></a></li>
-            <li><a href="https://www.instagram.com"><img class="logoFooter"  src="./assets/instagramFooter.png" alt=""></a></li>
-            <li><a href="https://www.whatsapp.com"><img class="logoFooter"  src="./assets/whatsappFooter.png" alt=""></a></li>
-          </ul>
-        </div>
-        <div><h5 class="font3">HOMEBANKING APPLICATION BY MATIAS SEGOVIA</h5></div>
-       
+      <div>
+        <ul class="d-flex gap-3">
+          <li><a href="https://www.facebook.com"><img class="logoFooter" src="./assets/facebookFooter.png" alt=""></a>
+          </li>
+          <li><a href="https://www.instagram.com"><img class="logoFooter" src="./assets/instagramFooter.png" alt=""></a>
+          </li>
+          <li><a href="https://www.whatsapp.com"><img class="logoFooter" src="./assets/whatsappFooter.png" alt=""></a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font3">HOMEBANKING APPLICATION BY MATIAS SEGOVIA</h5>
+      </div>
     </footer>
-
-
-
   </div>
-  <!--   BOOTRAP -->
+  <!--   BOOSTRAP -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
     crossorigin="anonymous"></script>
@@ -224,7 +217,7 @@
   <!-- VUEJS -->
   <script src="https://unpkg.com/vue@3"></script>
   <!-- JS -->
-  <script src="./accounts.js"></script>
+  <script src="./scripts/accounts.js"></script>
 </body>
 
 </html>

@@ -10,7 +10,7 @@
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="./assets/cards.css">
+    <link rel="stylesheet" href="./styles/cards.css">
     <link rel="shortcut icon" href="./assets/bull-side-view-black-animal-shape.png" type="image/x-icon">
     <title>Cards</title>
 </head>
@@ -72,7 +72,6 @@
                     <h3>{{clients.firstName}},</h3>
                     <h3>You can request up to 3 credit cards and 3 debit cards.</h3>
                     <h3>To create cards you can click here!</h3>
-
                     <div v-if="cardFilter.length == 6">
                         <p>Sorry, you can not create more Cards!<i class="bi bi-emoji-frown"></i></p>
                     </div>
@@ -83,14 +82,10 @@
                     </div>
                 </div>
             </section>
-
-
             <div class="m-5 ">
                 <h1 class="font h1 text-center text-light border-bottom ">Cards</h1>
             </div>
-
             <section class="d-sm-flex d-md-flex d-lg-flex d-xl-flex d-xxl-flex justify-content-around">
-
                 <div >
                     <div class="m-5 ">
                         <h2 class="font h3 text-center text-light  border-bottom ">Debits
@@ -136,7 +131,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--    <button @click="functionDelete(card.id)" class="btn-dark btn gradient mt-5">delete</button> -->
                     </div>
                     <div v-else class="h1 text-danger">You do not have cards</div>
                 </div>
@@ -194,7 +188,6 @@
                     </div>
                     <div v-else class="h1 text-danger">You do not have cards</div>
                 </div>
-
             </section>
 
 
@@ -209,21 +202,20 @@
             </div>
             <div class="font3"><h5>HOMEBANKING APPLICATION BY MATIAS SEGOVIA</h5></div>   -->       
         </footer>
-
-
-
     </div>
+<!--   BOOSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
-
+<!-- AXIOS -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+<!-- SWEETALERT -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+  <!-- VUEJS -->
     <script src="https://unpkg.com/vue@3"></script>
-    <script src="./cards.js"></script>
+ <!-- JS -->
+    <script src="./scripts/cards.js"></script>
 </body>
 
 </html>
