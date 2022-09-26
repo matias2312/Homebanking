@@ -23,6 +23,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	//implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
 	implementation 'com.itextpdf.maven:itextdoc:2.0.0'
+	testImplementation 'org.apache.httpcomponents:httpclient'
 }
 
 tasks.named('test') {

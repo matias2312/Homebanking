@@ -91,7 +91,7 @@ public class TransactionController {
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
+    @CrossOrigin(origins = "http://localhost:8080")
     @Transactional
     @PostMapping("/clients/current/transactions/payments")
     public ResponseEntity<Object> newPayments(Authentication authentication, @RequestBody PaymentsDTO paymentsDTO){
