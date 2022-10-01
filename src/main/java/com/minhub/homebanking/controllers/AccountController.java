@@ -10,6 +10,7 @@ import com.minhub.homebanking.models.AccountType;
 import com.minhub.homebanking.models.Client;
 import com.minhub.homebanking.repository.AccountRepository;
 import com.minhub.homebanking.repository.ClientRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,28 +23,23 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class AccountController {
-    @Autowired
-    private AccountService accountService;
-    @Autowired
-    private ClientService clientService;
-
-
+    private final AccountService accountService;
+    private final ClientService clientService;
+    public int getRandomNumber(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min); }
     @GetMapping("/accounts")
     public List<AccountDTO> getAccounts(){
         return accountService.getAccounts().stream().map(account -> new AccountDTO(account)).collect(Collectors.toList());
     }
-
     @GetMapping("/account/{id}")
     public AccountDTO getAccount(@PathVariable Long id) {
         return new AccountDTO(accountService.getAccountById(id));
     }
-
     @PostMapping("/clients/current/accounts")
     public ResponseEntity<Object> newAccount(Authentication authentication, @RequestParam AccountType accountType){
-
         String accountNumber = "VIN-" + getRandomNumber(1000000,99999999);
-
         Client client = clientService.findByClientEmail(authentication.getName());
 
         if(client == null){
@@ -56,7 +52,6 @@ public class AccountController {
             return new ResponseEntity<>("you can not create more accounts", HttpStatus.FORBIDDEN);
         }
         accountService.saveAccount(new Account(accountNumber, LocalDateTime.now(),0.0,client,true, accountType));
-       // accountService.saveAccount(new Account(accountNumber, LocalDateTime.now(),0.0,client,true, AccountType.SAVING));
         return new ResponseEntity<>(HttpStatus.CREATED);
         }
     @PatchMapping("/clients/current/accounts/delete")
@@ -79,15 +74,10 @@ public class AccountController {
         if(account.getBalance() > 0){
             return new ResponseEntity<>("You cannot delete an account with a balance greater than 0", HttpStatus.FORBIDDEN);
         }
-
-
         account.setActive(false);
         accountService.saveAccount(account);
         return new ResponseEntity<>("account deleted successfully", HttpStatus.OK);
     }
 
-    public int getRandomNumber(int min, int max) {
-        return (int) ((Math.random() * (max - min)) + min);
-    }
 
 }

@@ -7,6 +7,7 @@ import com.minhub.homebanking.configurations.WebAuthentication;
 import com.minhub.homebanking.models.Account;
 import com.minhub.homebanking.models.AccountType;
 import com.minhub.homebanking.models.Client;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,17 +20,11 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class ClientController {
-    @Autowired
-    private AccountService accountService;
-    @Autowired
-    private ClientService clientService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private WebAuthentication webAuthentication;
-
+    private final AccountService accountService;
+    private final ClientService clientService;
+    private final PasswordEncoder passwordEncoder;
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
@@ -42,7 +37,6 @@ public class ClientController {
     public ClientDTO getClient(@PathVariable Long id) {
         return new ClientDTO(clientService.getClientById(id));
     }
-
     @PostMapping("/clients")
     public ResponseEntity<Object> register(
             @RequestParam String firstName, @RequestParam String lastName,
@@ -62,7 +56,6 @@ public class ClientController {
         if (password.isEmpty()) {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
-
         if (clientService.findByClientEmail(email) != null) {
             return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
         }
@@ -75,7 +68,6 @@ public class ClientController {
         accountService.saveAccount(new Account(accountNumber, LocalDateTime.now(),0.0,newClient,true, AccountType.SAVING));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
     @GetMapping("/clients/current")
     public ClientDTO getAll(Authentication authentication) {
         return new ClientDTO(clientService.findByClientEmail(authentication.getName()));

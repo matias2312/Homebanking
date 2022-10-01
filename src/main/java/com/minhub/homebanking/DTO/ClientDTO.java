@@ -1,8 +1,13 @@
 package com.minhub.homebanking.DTO;
 import com.minhub.homebanking.models.Client;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Getter
+@NoArgsConstructor
 public class ClientDTO {
     private long id;
     private String firstName;
@@ -12,8 +17,6 @@ public class ClientDTO {
     private Set<ClientLoanDTO> loans;
     private Set<CardDTO> cards;
 
-    public ClientDTO() {
-    }
     public ClientDTO(Client client) {
         this.id = client.getId();
         this.firstName = client.getFirstName();
@@ -24,32 +27,5 @@ public class ClientDTO {
         this.cards = client.getCards().stream().map(card -> new CardDTO(card)).collect(Collectors.toSet());
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Set<AccountDTO> getAccounts() {
-        return accounts;
-    }
-
-    public Set<ClientLoanDTO> getLoans() {
-        return loans;
-    }
-
-    public Set<CardDTO> getCards() {
-        return cards;
-    }
 
 }

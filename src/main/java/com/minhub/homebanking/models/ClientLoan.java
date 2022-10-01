@@ -1,17 +1,24 @@
 package com.minhub.homebanking.models;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class ClientLoan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
+    @Setter(AccessLevel.NONE)
     private long id;
-
     private Double amount;
     private Integer payments;
     @ManyToOne
@@ -20,53 +27,10 @@ public class ClientLoan {
     @ManyToOne
     @JoinColumn(name = "loan_id")
     private Loan loan;
-
-    public ClientLoan() {
-    }
-
     public ClientLoan(Double amount, Integer payments, Client client, Loan loan) {
         this.amount = amount;
         this.payments = payments;
         this.client = client;
         this.loan = loan;
     }
-
-    public long getId() {
-        return id;
-    }
-
-
-    public Double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
-
-    public Integer getPayments() {
-        return payments;
-    }
-
-    public void setPayments(Integer payments) {
-        this.payments = payments;
-    }
-
-    public Loan getLoan() {
-        return loan;
-    }
-
-    public void setLoan(Loan loan) {
-        this.loan = loan;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-
 }

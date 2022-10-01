@@ -12,6 +12,7 @@ import com.minhub.homebanking.Services.*;
 
 import com.minhub.homebanking.models.*;
 
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,15 +37,11 @@ public class TransactionController {
     private TransactionService transactionService;
     @Autowired
     private CardService cardService;
-
-
-
     @Transactional
     @PostMapping("/clients/current/transactions")
     public ResponseEntity<Object> newTrasaction(Authentication authentication,
         @RequestParam Double amount,  @RequestParam String description,
-        @RequestParam String accountOrigin, @RequestParam String accountDestiny) {
-
+        @RequestParam String accountOrigin, @NonNull @RequestParam String accountDestiny) {
         Client client = clientService.findByClientEmail(authentication.getName());
         Account newAccountOrigin = accountService.getFindByNumber(accountOrigin);
         Account newAccountDestiny =  accountService.getFindByNumber(accountDestiny);
@@ -94,22 +91,22 @@ public class TransactionController {
     @CrossOrigin(origins = "http://localhost:8080")
     @Transactional
     @PostMapping("/clients/current/transactions/payments")
-    public ResponseEntity<Object> newPayments(Authentication authentication, @RequestBody PaymentsDTO paymentsDTO){
-        Client client = clientService.findByClientEmail(authentication.getName());
+    public ResponseEntity<Object> newPayments(@RequestBody PaymentsDTO paymentsDTO){
+        //Client client = clientService.findByClientEmail(authentication.getName());
         Card cardNumber = cardService.getCardByNumber(paymentsDTO.getNumber());
         int cvv = cardNumber.getCvv();
 
         Account accountOrigin = cardNumber.getAccount();
 
-        if (client == null){
-            return new ResponseEntity<>("client does not exist", HttpStatus.FORBIDDEN);
-        }
+        //if (client == null){
+          //  return new ResponseEntity<>("client does not exist", HttpStatus.FORBIDDEN);
+        //}
         if(cardNumber.getActive() == false){
             return new ResponseEntity<>("disabled card", HttpStatus.FORBIDDEN);
         }
-        if(!client.getCards().contains(cardNumber)){
-            return new ResponseEntity<>("number does not exist", HttpStatus.FORBIDDEN);
-        }
+       // if(!client.getCards().contains(cardNumber)){
+         //   return new ResponseEntity<>("number does not exist", HttpStatus.FORBIDDEN);
+        //}
         if(paymentsDTO.getCvv() != cvv){
             return new ResponseEntity<>("cvv invalid", HttpStatus.FORBIDDEN);
         }

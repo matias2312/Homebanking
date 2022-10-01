@@ -14,31 +14,22 @@ import javax.servlet.http.HttpSession;
 @Configuration
 //antes de abrir el saco hace esto
 public class WebAuthorization extends WebSecurityConfigurerAdapter {
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
                 .antMatchers(HttpMethod.PATCH, "/api/clients/current/cards/delete","/clients/current/accounts/delete").hasAnyAuthority("CLIENT","ADMIN")
-                .antMatchers(HttpMethod.POST, "/api/clients").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/clients/current/transactions/payments").permitAll()//solo para poder consumir desde el E-commerce
                 .antMatchers(HttpMethod.POST, "/api/clients/current/loan/create").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.POST, "/api/clients/current/accounts","/api/clients/current/cards","/api/clients/current/transactions","/api/clients/current/loan","/api/clients/current/transactions/payments","/api/download","/api/transactions/filtered").hasAnyAuthority("CLIENT","ADMIN")
-                //cuando trabajamos con sprint security limitamos el acceso, de esta foma vamos liberand//dar acceso a las rutas, en este caso a todos
+                .antMatchers(HttpMethod.POST, "/api/clients/current/accounts","/api/clients/current/cards","/api/clients/current/transactions","/api/clients/current/loan","/api/download","/api/transactions/filtered").hasAnyAuthority("CLIENT","ADMIN")
                 .antMatchers("/styles.css","/web/styles/**","/web/assets/**","/web/videos/**","/web/download","/index.html","/web/scripts/**").permitAll()
-
                 .antMatchers("/rest/**","/h2-console","/clients/current","/web/manager.html").hasAuthority("ADMIN")
-
-                .antMatchers("/web/**").hasAnyAuthority("CLIENT","ADMIN");
-
-
-
+                .antMatchers("/web/**","/api/clients").hasAnyAuthority("CLIENT","ADMIN");
 
         http.formLogin()
 
                 .usernameParameter("email")
-
                 .passwordParameter("pwd")
-//es el controlador del fomulario login
                 .loginPage("/api/login");
 
 

@@ -4,10 +4,14 @@ import com.minhub.homebanking.models.Account;
 import com.minhub.homebanking.models.Card;
 import com.minhub.homebanking.models.CardColor;
 import com.minhub.homebanking.models.CardType;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+@Getter
+@NoArgsConstructor
 public class CardDTO {
 
     private Long id;
@@ -20,11 +24,6 @@ public class CardDTO {
     private CardType cardType;
 
     private Boolean active;
-
-
-
-    public CardDTO() {
-    }
 
     public CardDTO(Card card) {
         this.id = card.getId();
@@ -39,40 +38,5 @@ public class CardDTO {
 
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getCardHolder() {
-        return cardHolder;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public int getCvv() {
-        return cvv;
-    }
-
-    public LocalDateTime getThruDate() {
-        return thruDate;
-    }
-
-    public LocalDateTime getFromDate() {
-        return fromDate;
-    }
-
-    public CardColor getCardColor() {
-        return cardColor;
-    }
-
-    public CardType getCardType() {
-        return cardType;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
 
 }

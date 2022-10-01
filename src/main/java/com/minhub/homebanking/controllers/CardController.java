@@ -6,6 +6,7 @@ import com.minhub.homebanking.Services.CardService;
 import com.minhub.homebanking.Services.ClientService;
 import com.minhub.homebanking.models.*;
 import com.minhub.homebanking.utils.CardUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,23 +17,14 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class CardController {
-
-    @Autowired
-    private CardService cardService;
-    @Autowired
-    private ClientService clientService;
-    @Autowired
-    private AccountService accountService;
-
-    public int getRandomNumber(int min, int max) {
-        return (int) ((Math.random() * (max - min)) + min);
-    }
+    private final CardService cardService;
+    private final ClientService clientService;
+    private final AccountService accountService;
 
     @PostMapping("/clients/current/cards")
     public ResponseEntity<Object> newCard(Authentication authentication, @RequestParam CardType cardType, @RequestParam CardColor cardColor,@RequestParam String accountOrigin) {
-//para poder manipular las propiedad de la respuesta
-
         String cardNumber = CardUtils.getCardNumber();
         int cvv = CardUtils.getCardCvv();
         Client client = clientService.findByClientEmail(authentication.getName());
@@ -54,9 +46,6 @@ public class CardController {
         cardService.saveCard(new Card(client, client.toString(), cardNumber, cvv, LocalDateTime.now().plusYears(5), LocalDateTime.now(), cardColor, cardType,true,account));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
-
-
     @PatchMapping("/clients/current/cards/delete")
     public ResponseEntity<Object> deleteCard(Authentication authentication,@RequestParam Long cardId ){
         Client client = clientService.findByClientEmail(authentication.getName());

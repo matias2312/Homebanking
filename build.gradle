@@ -24,6 +24,11 @@ dependencies {
 	//implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
 	implementation 'com.itextpdf.maven:itextdoc:2.0.0'
 	testImplementation 'org.apache.httpcomponents:httpclient'
+
+	compileOnly 'org.projectlombok:lombok:1.18.24'
+	annotationProcessor 'org.projectlombok:lombok:1.18.24'
+	testCompileOnly 'org.projectlombok:lombok:1.18.24'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
 }
 
 tasks.named('test') {

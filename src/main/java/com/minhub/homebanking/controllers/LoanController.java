@@ -4,6 +4,7 @@ import com.minhub.homebanking.DTO.LoanApplicationDTO;
 import com.minhub.homebanking.DTO.LoanDTO;
 import com.minhub.homebanking.Services.*;
 import com.minhub.homebanking.models.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,17 +18,13 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class LoanController {
-    @Autowired
-    private LoanService loanService;
-    @Autowired
-    private ClientService clientService;
-    @Autowired
-    private AccountService accountService;
-    @Autowired
-    private ClientLoanService clientLoanService;
-    @Autowired
-    private TransactionService transactionService;
+    private final LoanService loanService;
+    private final ClientService clientService;
+    private final AccountService accountService;
+    private final ClientLoanService clientLoanService;
+    private final TransactionService transactionService;
 
     @Transactional
     @PostMapping("/clients/current/loan")
@@ -73,12 +70,10 @@ public class LoanController {
         account.setBalance(account.getBalance() + loanApplicationDTO.getAmount());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
     @GetMapping("/loans")
     public List<LoanDTO> getLoan() {
         return loanService.getLoan().stream().map(loan -> new LoanDTO(loan)).collect(Collectors.toList());
     }
-
     @PostMapping("/clients/current/loan/create")
     public ResponseEntity<Object> createLoan(Authentication authentication, @RequestParam String name,@RequestParam  List<Integer> payments,@RequestParam  Double maxAmount,@RequestParam Double interest ) {
         Client admin = clientService.findByClientEmail(authentication.getName());
