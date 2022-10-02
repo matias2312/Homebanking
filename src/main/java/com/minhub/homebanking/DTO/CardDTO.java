@@ -22,7 +22,6 @@ public class CardDTO {
     private LocalDateTime fromDate;
     private CardColor cardColor;
     private CardType cardType;
-
     private Boolean active;
 
     public CardDTO(Card card) {

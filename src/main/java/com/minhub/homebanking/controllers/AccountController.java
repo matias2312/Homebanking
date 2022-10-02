@@ -11,6 +11,7 @@ import com.minhub.homebanking.models.Client;
 import com.minhub.homebanking.repository.AccountRepository;
 import com.minhub.homebanking.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
