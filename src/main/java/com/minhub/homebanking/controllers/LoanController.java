@@ -61,7 +61,6 @@ public class LoanController {
         }
 
         double loanint = loanApplicationDTO.getAmount() * (loan.getInterest() / 100) + loanApplicationDTO.getAmount();
-
         Double balance1 = account.getBalance() + loanApplicationDTO.getAmount();
         ClientLoan clientLoan1 = new ClientLoan(loanint, loanApplicationDTO.getPayments(), client, loan);
         Transaction transaction1 = new Transaction(account, TransactionType.CREDIT, loanApplicationDTO.getAmount(), " loan approved " + clientLoan1.getLoan().getName(), LocalDateTime.now(), balance1);

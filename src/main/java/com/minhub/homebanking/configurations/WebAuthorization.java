@@ -22,9 +22,9 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/clients/current/transactions/payments").permitAll()//solo para poder consumir desde el E-commerce
                 .antMatchers(HttpMethod.POST, "/api/clients/current/loan/create").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.POST, "/api/clients/current/accounts","/api/clients/current/cards","/api/clients/current/transactions","/api/clients/current/loan","/api/download","/api/transactions/filtered").hasAnyAuthority("CLIENT","ADMIN")
-                .antMatchers("/styles.css","/web/styles/**","/web/assets/**","/web/videos/**","/web/download","/index.html","/web/scripts/**").permitAll()
+                .antMatchers("/styles.css","/web/styles/**","/web/assets/**","/web/videos/**","/web/download","/index.html","/web/scripts/**","/api/**").permitAll()
                 .antMatchers("/rest/**","/h2-console","/clients/current","/web/manager.html").hasAuthority("ADMIN")
-                .antMatchers("/web/**","/api/clients").hasAnyAuthority("CLIENT","ADMIN");
+                .antMatchers("/web/**","/api/login").hasAnyAuthority("CLIENT","ADMIN");
 
         http.formLogin()
 

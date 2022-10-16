@@ -4,6 +4,8 @@ import com.minhub.homebanking.DTO.ClientDTO;
 import com.minhub.homebanking.Services.AccountService;
 import com.minhub.homebanking.Services.ClientService;
 import com.minhub.homebanking.configurations.WebAuthentication;
+import com.minhub.homebanking.email.ValidatorEmail;
+import com.minhub.homebanking.email.VerificationEmail;
 import com.minhub.homebanking.models.Account;
 import com.minhub.homebanking.models.AccountType;
 import com.minhub.homebanking.models.Client;
@@ -25,6 +27,10 @@ public class ClientController {
     private final AccountService accountService;
     private final ClientService clientService;
     private final PasswordEncoder passwordEncoder;
+    private final VerificationEmail verificationEmail;
+    private final ValidatorEmail validatorEmail;
+
+
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
@@ -59,6 +65,9 @@ public class ClientController {
         if (clientService.findByClientEmail(email) != null) {
             return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
         }
+        if (!validatorEmail.test(email)) {
+            return new ResponseEntity<>("invalid mail", HttpStatus.FORBIDDEN);
+        }
         if(email.contains("admin@mindhub.com")){
             return new ResponseEntity<>("Invalid user", HttpStatus.FORBIDDEN);
         }
@@ -66,6 +75,11 @@ public class ClientController {
         Client newClient = new Client(firstName, lastName, email, passwordEncoder.encode(password));
         clientService.saveClient(newClient);
         accountService.saveAccount(new Account(accountNumber, LocalDateTime.now(),0.0,newClient,true, AccountType.SAVING));
+
+        String mailSubject = "Welcome to Home Banking";
+        String mailBody = "Thank you for registering, we are here to give you the best experience!";
+        verificationEmail.sendEmail(newClient.getEmail(), mailSubject, mailBody);
+
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     @GetMapping("/clients/current")

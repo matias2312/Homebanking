@@ -43,13 +43,13 @@ createApp({
                     button:"clouse!",
                    
                 }))
-            .catch(response => 
-                Swal.fire({
+                  .catch(error =>  Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'User is Register!',
-                  }))   
-            setTimeout(() => { location.href = "/web/accounts.html"}, 1500)  
+                    text: error.response.data
+                  }))
+    
+          
         },
         
     },

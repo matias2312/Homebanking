@@ -24,6 +24,7 @@ dependencies {
 	//implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
 	implementation 'com.itextpdf.maven:itextdoc:2.0.0'
 	testImplementation 'org.apache.httpcomponents:httpclient'
+	implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.4'
 
 	compileOnly 'org.projectlombok:lombok:1.18.24'
 	annotationProcessor 'org.projectlombok:lombok:1.18.24'
