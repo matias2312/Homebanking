@@ -19,12 +19,12 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers(HttpMethod.PATCH, "/api/clients/current/cards/delete","/clients/current/accounts/delete").hasAnyAuthority("CLIENT","ADMIN")
-                .antMatchers(HttpMethod.POST, "/api/clients/current/transactions/payments").permitAll()//solo para poder consumir desde el E-commerce
+                .antMatchers(HttpMethod.POST, "/api/clients/current/transactions/payments","/api/clients").permitAll()//solo para poder consumir desde el E-commerce
                 .antMatchers(HttpMethod.POST, "/api/clients/current/loan/create").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.POST, "/api/clients/current/accounts","/api/clients/current/cards","/api/clients/current/transactions","/api/clients/current/loan","/api/download","/api/transactions/filtered").hasAnyAuthority("CLIENT","ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/clients/current/accounts","/api/clients/current/cards","/api/clients/current/transactions","/api/clients/current/loan","/api/download","/api/transactions/filtered","/api/login").hasAnyAuthority("CLIENT","ADMIN")
                 .antMatchers("/styles.css","/web/styles/**","/web/assets/**","/web/videos/**","/web/download","/index.html","/web/scripts/**","/api/**").permitAll()
                 .antMatchers("/rest/**","/h2-console","/clients/current","/web/manager.html").hasAuthority("ADMIN")
-                .antMatchers("/web/**","/api/login").hasAnyAuthority("CLIENT","ADMIN");
+                .antMatchers("/web/**").hasAnyAuthority("CLIENT","ADMIN");
 
         http.formLogin()
 

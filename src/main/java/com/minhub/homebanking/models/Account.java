@@ -11,8 +11,9 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@Builder(toBuilder = true)
 @NoArgsConstructor
-
+@AllArgsConstructor
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")

@@ -12,7 +12,9 @@ import com.minhub.homebanking.Services.*;
 
 import com.minhub.homebanking.models.*;
 
+import com.minhub.homebanking.repository.BankDAO;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,7 @@ import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class TransactionController {
     @Autowired
     private ClientService clientService;
@@ -37,14 +40,16 @@ public class TransactionController {
     private TransactionService transactionService;
     @Autowired
     private CardService cardService;
+    private final BankDAO bankDAO;
     @Transactional
     @PostMapping("/clients/current/transactions")
     public ResponseEntity<Object> newTrasaction(Authentication authentication,
         @RequestParam Double amount,  @RequestParam String description,
         @RequestParam String accountOrigin, @NonNull @RequestParam String accountDestiny) {
-        Client client = clientService.findByClientEmail(authentication.getName());
-        Account newAccountOrigin = accountService.getFindByNumber(accountOrigin);
-        Account newAccountDestiny =  accountService.getFindByNumber(accountDestiny);
+       // Client client = clientService.findByClientEmail(authentication.getName());
+        Client client = bankDAO.findByClientEmail(authentication.getName());
+        Account newAccountOrigin = bankDAO.getAccountFindByNumber(accountOrigin);
+        Account newAccountDestiny =  bankDAO.getAccountFindByNumber(accountDestiny);
 
         if(client == null){
             return new ResponseEntity<>("Client does not exist", HttpStatus.FORBIDDEN);
@@ -70,7 +75,7 @@ public class TransactionController {
         if(newAccountDestiny == null) {
             return new ResponseEntity<>("Destiny account doesn´t exist", HttpStatus.FORBIDDEN);
         }
-        if(accountService.getFindByNumber(accountOrigin).getBalance() < amount){
+        if(bankDAO.getAccountFindByNumber(accountOrigin).getBalance() < amount){
             return new ResponseEntity<>("Not enough money", HttpStatus.FORBIDDEN);
         }
 
@@ -128,8 +133,9 @@ public class TransactionController {
     @PostMapping("/transactions/filtered")
     public ResponseEntity<Object> getFilteredTransaction(
             @RequestBody PdfDTO pdfDTO, Authentication authentication) throws DocumentException, FileNotFoundException {
-        Client client = clientService.findByClientEmail(authentication.getName());
-        Account account = accountService.getFindByNumber(pdfDTO.getClientAccount());
+       // Client client = clientService.findByClientEmail(authentication.getName());
+        Client client = bankDAO.findByClientEmail(authentication.getName());
+        Account account = bankDAO.getAccountFindByNumber(pdfDTO.getClientAccount());
         if(client == null){
             return new ResponseEntity<>("client does not exist", HttpStatus.FORBIDDEN);
         }

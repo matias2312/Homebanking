@@ -1,10 +1,7 @@
 package com.minhub.homebanking.models;
 
 import com.minhub.homebanking.DTO.CardDTO;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -16,7 +13,9 @@ import java.util.stream.Collectors;
 @Entity
 @Getter
 @Setter
+@Builder(toBuilder = true)
 @NoArgsConstructor
+@AllArgsConstructor
 public class Client {
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")

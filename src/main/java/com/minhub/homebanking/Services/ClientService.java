@@ -1,12 +1,15 @@
 package com.minhub.homebanking.Services;
 
+import com.minhub.homebanking.DTO.ClientDTO;
+import com.minhub.homebanking.DTO.UserRequestDTO;
 import com.minhub.homebanking.models.Client;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface ClientService {
-    public List<Client> getClients();
-    public  Client getClientById(Long Id);
-    public Client findByClientEmail(String email);
-    public void saveClient(Client client);
+     List<Client> getClients();
+    void saveClient(Client client);
+    ResponseEntity<Object> register(UserRequestDTO userRequestDTO);
+    ClientDTO getClientId(Long id);
 }

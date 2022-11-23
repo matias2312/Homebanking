@@ -2,15 +2,15 @@ package com.minhub.homebanking.DTO;
 
 import com.minhub.homebanking.models.Account;
 import com.minhub.homebanking.models.AccountType;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 @Getter
 @NoArgsConstructor
+@Builder(toBuilder = true)
+@AllArgsConstructor
 public class AccountDTO {
     private long id;
     private String number;

@@ -4,6 +4,7 @@ import com.minhub.homebanking.DTO.LoanApplicationDTO;
 import com.minhub.homebanking.DTO.LoanDTO;
 import com.minhub.homebanking.Services.*;
 import com.minhub.homebanking.models.*;
+import com.minhub.homebanking.repository.BankDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,14 +26,16 @@ public class LoanController {
     private final AccountService accountService;
     private final ClientLoanService clientLoanService;
     private final TransactionService transactionService;
+    private final BankDAO bankDAO;
 
     @Transactional
     @PostMapping("/clients/current/loan")
     public ResponseEntity<String> newLoan(@RequestBody LoanApplicationDTO loanApplicationDTO, Authentication authentication) {
 
-        Client client = clientService.findByClientEmail(authentication.getName());
+        //Client client = clientService.findByClientEmail(authentication.getName());
+        Client client = bankDAO.findByClientEmail(authentication.getName());
         Loan loan = loanService.getLoanById(loanApplicationDTO.getId());
-        Account account = accountService.getFindByNumber(loanApplicationDTO.getAccountDestiny());
+        Account account = bankDAO.getAccountFindByNumber(loanApplicationDTO.getAccountDestiny());
         //crear una prpopiedad % y le damos un valor cuando creamos un prestamo.
 
         if (client == null) {
@@ -75,7 +78,8 @@ public class LoanController {
     }
     @PostMapping("/clients/current/loan/create")
     public ResponseEntity<Object> createLoan(Authentication authentication, @RequestParam String name,@RequestParam  List<Integer> payments,@RequestParam  Double maxAmount,@RequestParam Double interest ) {
-        Client admin = clientService.findByClientEmail(authentication.getName());
+       // Client admin = clientService.findByClientEmail(authentication.getName());
+        Client admin = bankDAO.findByClientEmail(authentication.getName());
 
         if (admin == null) {
             return new ResponseEntity<>("admin does not exist", HttpStatus.FORBIDDEN);

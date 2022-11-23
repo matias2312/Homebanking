@@ -5,6 +5,7 @@ import com.minhub.homebanking.Services.AccountService;
 import com.minhub.homebanking.Services.CardService;
 import com.minhub.homebanking.Services.ClientService;
 import com.minhub.homebanking.models.*;
+import com.minhub.homebanking.repository.BankDAO;
 import com.minhub.homebanking.utils.CardUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,16 @@ import java.time.LocalDateTime;
 public class CardController {
     private final CardService cardService;
     private final ClientService clientService;
+    private final BankDAO bankDAO;
     private final AccountService accountService;
 
     @PostMapping("/clients/current/cards")
     public ResponseEntity<Object> newCard(Authentication authentication, @RequestParam CardType cardType, @RequestParam CardColor cardColor,@RequestParam String accountOrigin) {
         String cardNumber = CardUtils.getCardNumber();
         int cvv = CardUtils.getCardCvv();
-        Client client = clientService.findByClientEmail(authentication.getName());
-        Account account = accountService.getFindByNumber(accountOrigin);
+       // Client client = clientService.findByClientEmail(authentication.getName());
+        Client client = bankDAO.findByClientEmail(authentication.getName());
+        Account account = bankDAO.getAccountFindByNumber(accountOrigin);
 
         if(cardType == null || cardColor == null) {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
@@ -48,7 +51,8 @@ public class CardController {
     }
     @PatchMapping("/clients/current/cards/delete")
     public ResponseEntity<Object> deleteCard(Authentication authentication,@RequestParam Long cardId ){
-        Client client = clientService.findByClientEmail(authentication.getName());
+       // Client client = clientService.findByClientEmail(authentication.getName());
+        Client client = bankDAO.findByClientEmail(authentication.getName());
         Card card = cardService.getCardById(cardId);
         if(card == null){
             return new ResponseEntity<>("the card does not exist", HttpStatus.FORBIDDEN);
