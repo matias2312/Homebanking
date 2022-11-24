@@ -1,10 +1,14 @@
 package com.minhub.homebanking.Services;
 
+import com.minhub.homebanking.DTO.CardDTO;
 import com.minhub.homebanking.models.Card;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 
 public interface CardService {
-    public void saveCard(Card card);
-    public Boolean deleteCard(Card card);
-    public Card getCardById(Long Id);
-    public Card getCardByNumber(String number);
+     void saveCard(Card card);
+     Card getCardByNumber(String number);
+     ResponseEntity<Object> newCard(CardDTO cardDTO, Authentication authentication);
+     ResponseEntity<Object> deleteCard(Long cardId, Authentication authentication);
+
 }

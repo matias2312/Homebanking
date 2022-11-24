@@ -1,9 +1,7 @@
 package com.minhub.homebanking.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -17,6 +15,8 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @NoArgsConstructor
+@Builder(toBuilder = true)
+@AllArgsConstructor
 public class Loan {
 
     @Id

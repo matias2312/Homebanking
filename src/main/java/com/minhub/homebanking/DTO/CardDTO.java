@@ -1,9 +1,6 @@
 package com.minhub.homebanking.DTO;
 
-import com.minhub.homebanking.models.Account;
-import com.minhub.homebanking.models.Card;
-import com.minhub.homebanking.models.CardColor;
-import com.minhub.homebanking.models.CardType;
+import com.minhub.homebanking.models.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,6 +20,7 @@ public class CardDTO {
     private CardColor cardColor;
     private CardType cardType;
     private Boolean active;
+    private String accountOrigin;
 
     public CardDTO(Card card) {
         this.id = card.getId();
@@ -34,7 +32,7 @@ public class CardDTO {
         this.cardColor = card.getCardColor();
         this.cardType = card.getCardType();
         this.active = card.getActive();
-
+        this.accountOrigin = card.getAccount().getNumber();
     }
 
 

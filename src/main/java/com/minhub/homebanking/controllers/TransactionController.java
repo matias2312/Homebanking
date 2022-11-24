@@ -103,15 +103,9 @@ public class TransactionController {
 
         Account accountOrigin = cardNumber.getAccount();
 
-        //if (client == null){
-          //  return new ResponseEntity<>("client does not exist", HttpStatus.FORBIDDEN);
-        //}
         if(cardNumber.getActive() == false){
             return new ResponseEntity<>("disabled card", HttpStatus.FORBIDDEN);
         }
-       // if(!client.getCards().contains(cardNumber)){
-         //   return new ResponseEntity<>("number does not exist", HttpStatus.FORBIDDEN);
-        //}
         if(paymentsDTO.getCvv() != cvv){
             return new ResponseEntity<>("cvv invalid", HttpStatus.FORBIDDEN);
         }

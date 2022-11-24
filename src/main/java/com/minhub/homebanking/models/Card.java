@@ -1,8 +1,6 @@
 package com.minhub.homebanking.models;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +8,8 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@Builder(toBuilder = true)
+@AllArgsConstructor
 public class Card {
 
     @Id
@@ -33,7 +33,6 @@ public class Card {
     private LocalDateTime fromDate;
     private CardColor cardColor;
     private CardType cardType;
-
     private Boolean active;
 
     public Card() {
@@ -51,27 +50,5 @@ public class Card {
         this.cardType = cardType;
         this.active =  active;
     }
-    public Card(Client client, String cardHolder, String number, int cvv, LocalDateTime thruDate, LocalDateTime fromDate,CardColor cardColor,CardType cardType,Boolean active) {
-        this.client = client;
-        this.cardHolder = cardHolder;
-        this.number = number;
-        this.cvv = cvv;
-        this.thruDate = thruDate;
-        this.fromDate = fromDate;
-        this.cardColor = cardColor;
-        this.cardType = cardType;
-        this.active =  active;
-    }
-    public Card(Client client, String cardHolder, String number, int cvv, LocalDateTime thruDate, LocalDateTime fromDate,CardColor cardColor,CardType cardType) {
-        this.client = client;
-        this.cardHolder = cardHolder;
-        this.number = number;
-        this.cvv = cvv;
-        this.thruDate = thruDate;
-        this.fromDate = fromDate;
-        this.cardColor = cardColor;
-        this.cardType = cardType;
-    }
-
 
 }
