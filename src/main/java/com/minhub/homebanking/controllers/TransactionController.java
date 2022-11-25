@@ -8,6 +8,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.minhub.homebanking.DTO.PaymentsDTO;
 import com.minhub.homebanking.DTO.PdfDTO;
+import com.minhub.homebanking.DTO.TransactionRequestDTO;
 import com.minhub.homebanking.Services.*;
 
 import com.minhub.homebanking.models.*;
@@ -32,66 +33,13 @@ import java.util.stream.Stream;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class TransactionController {
-    @Autowired
-    private ClientService clientService;
-    @Autowired
-    private AccountService accountService;
-    @Autowired
-    private TransactionService transactionService;
-    @Autowired
-    private CardService cardService;
+    private final TransactionService transactionService;
+    private final CardService cardService;
     private final BankDAO bankDAO;
     @Transactional
     @PostMapping("/clients/current/transactions")
-    public ResponseEntity<Object> newTrasaction(Authentication authentication,
-        @RequestParam Double amount,  @RequestParam String description,
-        @RequestParam String accountOrigin, @NonNull @RequestParam String accountDestiny) {
-       // Client client = clientService.findByClientEmail(authentication.getName());
-        Client client = bankDAO.findByClientEmail(authentication.getName());
-        Account newAccountOrigin = bankDAO.getAccountFindByNumber(accountOrigin);
-        Account newAccountDestiny =  bankDAO.getAccountFindByNumber(accountDestiny);
-
-        if(client == null){
-            return new ResponseEntity<>("Client does not exist", HttpStatus.FORBIDDEN);
-        }
-        if(amount <= 0 ||  amount == null){
-            return new ResponseEntity<>("Amount not available", HttpStatus.FORBIDDEN);
-        }
-        if(newAccountOrigin.getActive() == false){
-            return new ResponseEntity<>("account not available", HttpStatus.FORBIDDEN);
-        }
-        if(newAccountDestiny.getActive() == false){
-            return new ResponseEntity<>("account not available", HttpStatus.FORBIDDEN);
-        }
-        if (description.isEmpty() || accountOrigin.isEmpty() || accountDestiny.isEmpty()) {
-            return new ResponseEntity<>("Missing data to complete", HttpStatus.FORBIDDEN);
-        }
-        if(accountOrigin.equals(accountDestiny)){
-            return new ResponseEntity<>("Accounts cannot be the same", HttpStatus.FORBIDDEN);
-        }
-        if(newAccountOrigin == null){
-            return new ResponseEntity<>("Origin account doesn´t exist", HttpStatus.FORBIDDEN);
-        }
-        if(newAccountDestiny == null) {
-            return new ResponseEntity<>("Destiny account doesn´t exist", HttpStatus.FORBIDDEN);
-        }
-        if(bankDAO.getAccountFindByNumber(accountOrigin).getBalance() < amount){
-            return new ResponseEntity<>("Not enough money", HttpStatus.FORBIDDEN);
-        }
-
-        Double balance1 = newAccountOrigin.getBalance() - amount;
-        Double balance2 = newAccountDestiny.getBalance() + amount;
-        Transaction transactionDebit = new Transaction(newAccountOrigin,TransactionType.DEBIT,-amount,description + " go to " + accountDestiny, LocalDateTime.now(), balance1);
-        Transaction transactionCredit = new Transaction(newAccountDestiny, TransactionType.CREDIT,amount,description + " from to " + accountOrigin,LocalDateTime.now(), balance2);
-        transactionService.saveTransaction(transactionDebit);
-        transactionService.saveTransaction(transactionCredit);
-
-        newAccountOrigin.setBalance(newAccountOrigin.getBalance() - amount);
-        newAccountDestiny.setBalance(newAccountDestiny.getBalance() + amount);
-        accountService.saveAccount(newAccountOrigin);
-        accountService.saveAccount(newAccountDestiny);
-
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<Object> newTransaction(@RequestBody TransactionRequestDTO transactionRequestDTO, Authentication authentication) {
+        return transactionService.newTransaction(transactionRequestDTO,authentication);
     }
     @CrossOrigin(origins = "http://localhost:8080")
     @Transactional
